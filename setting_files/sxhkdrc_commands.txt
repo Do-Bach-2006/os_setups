@@ -1,0 +1,7 @@
+#open copilot
+shift + alt + c 
+      microsoft-copilot-nativefier &
+
+#open chatgpt
+shift + alt + x
+      chat-gpt &

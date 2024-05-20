@@ -1,0 +1,28 @@
+{
+    "workbench.sideBar.location": "right",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "workbench.list.smoothScrolling": true,
+    "editor.smoothScrolling": true,
+    "terminal.integrated.smoothScrolling": true,
+    "editor.minimap.autohide": true,
+    "editor.minimap.maxColumn": 100,
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'fira code', 'monospace', monospace",
+    "terminal.external.linuxExec": "alacritty",
+    "terminal.integrated.fontFamily": "JetBrainsMono NF",
+    "editor.guides.indentation": false,
+    "editor.renderLineHighlight": "none",
+    "editor.renderLineHighlightOnlyWhenFocus": true,
+    "workbench.colorCustomizations": {
+        "editorError.foreground": "#00000000",
+        "editorWarning.foreground": "#00000000",
+        "editorInfo.foreground": "#00000000"
+    }
+
+}
