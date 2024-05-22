@@ -73,6 +73,8 @@ add_settings()
 
 main()
 {
+    # set the timeout for sudo commands to last all the installation progress
+    export TMOUT=30000
     add_chaotic_aur
     install_needed_applications
 
