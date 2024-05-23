@@ -81,7 +81,7 @@ add_settings()
 
 main()
 {
-    get_password
+    
 
     add_chaotic_aur
     install_needed_applications
@@ -104,6 +104,6 @@ main()
     password=""
 }
 
-
+get_password
 # we pipe with yes to make the program alway select the default options
 yes "" | main
