@@ -15,8 +15,9 @@ add_chaotic_aur()
     echo $password | sudo -S pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
     echo $password | sudo -S pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
 
-    echo $password | sudo -S echo "[chaotic-aur]" >> /etc/pacman.conf
-    echo $password | sudo -S echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+    echo $password | sudo -S tee -a /etc/pacman.conf <<< "[chaotic-aur]"
+    echo $password | sudo -S tee -a /etc/pacman.conf <<< "Include = /etc/pacman.d/chaotic-mirrorlist"
+
 }
 
 install_needed_applications()
@@ -41,8 +42,7 @@ install_dotfiles()
     echo "setup favorite dotfiles"
     curl https://raw.githubusercontent.com/gh0stzk/dotfiles/master/RiceInstaller -o $HOME/RiceInstaller
     chmod +x RiceInstaller
-    
-    echo $password | ./RiceInstaller
+    ./RiceInstaller
 }
 
 setup_visual_studio_code()
@@ -81,10 +81,11 @@ add_settings()
 
 main()
 {
-    
+    # we pipe with yes to make the program alway select the default options
+    get_password
 
-    add_chaotic_aur
-    install_needed_applications
+    yes "" | add_chaotic_aur
+    yes "" | install_needed_applications
 
     # copy the settings content files to the home screen inorder to setup the settings and for the rice installer to work
     cp -r "./setting_files" $HOME
@@ -92,10 +93,12 @@ main()
 
     mkdir programming
 
-    setup_visual_studio_code
+    yes "" | setup_visual_studio_code
 
-    install_dotfiles
-    add_settings
+    # the dotfiles only receive y or n
+    yes "y" | install_dotfiles
+
+    yes "" | add_settings
 
     # clean up tempt files after setup
     # we are at the $HOME directory
@@ -104,6 +107,6 @@ main()
     password=""
 }
 
-get_password
-# we pipe with yes to make the program alway select the default options
-yes "" | main
+
+
+main
