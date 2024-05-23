@@ -1,29 +1,36 @@
 #! /usr/bin/bash
 
+password=""
+
+get_password()
+{
+    echo "please enter your sudo password for the whole programs"
+    read password
+}
 
 add_chaotic_aur()
 {
-    sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-    sudo pacman-key --lsign-key 3056513887B78AEB
-    sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-    sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+    echo $password | sudo -S pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+    echo $password | sudo -S pacman-key --lsign-key 3056513887B78AEB
+    echo $password | sudo -S pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+    echo $password | sudo -S pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
 
-    sudo echo "[chaotic-aur]" >> /etc/pacman.conf
-    sudo echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+    echo $password | sudo -S echo "[chaotic-aur]" >> /etc/pacman.conf
+    echo $password | sudo -S echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
 }
 
 install_needed_applications()
 {
     # update the systems
     echo "system updates"
-    sudo -S pacman -Syu
+    echo $password | sudo -S pacman -Syu
 
     # install needed package managers
     echo "install yay and paru"
-    sudo -S pacman -S yay paru
+    echo $password | sudo -S pacman -S yay paru
     # install needed applications
     echo "install necessary apps"
-    yay -S discord discordupdater chatgpt-desktop-bin microsoft-copilot-nativefier spotube-bin bleachbit etcher-bin brave-bin bitwarden gparted libreoffice-fresh wps-office rider fcitx5 fcitx5-configtool fcitx5-unikey git bat font-manager python-fonttools qbittorrent visual-studio-code-bin neovim python-pylspci python-pylsp-mypy python-pylsp-rope
+    echo $password | sudo -S yay -S discord discordupdater chatgpt-desktop-bin microsoft-copilot-nativefier spotube-bin bleachbit etcher-bin brave-bin bitwarden gparted libreoffice-fresh wps-office rider fcitx5 fcitx5-configtool fcitx5-unikey git bat font-manager python-fonttools qbittorrent visual-studio-code-bin neovim python-pylspci python-pylsp-mypy python-pylsp-rope
 
 }
 
@@ -73,8 +80,8 @@ add_settings()
 
 main()
 {
-    # set the timeout for sudo commands to last all the installation progress
-    export TMOUT=30000
+    get_password
+
     add_chaotic_aur
     install_needed_applications
 
@@ -92,6 +99,10 @@ main()
     # clean up tempt files after setup
     # we are at the $HOME directory
     rm -rf ./setting_files
+    # reset the password cache for security
+    password=""
 }
 
-main
+
+# we pipe with yes to make the program alway select the default options
+yes "" | main
