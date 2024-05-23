@@ -41,7 +41,8 @@ install_dotfiles()
     echo "setup favorite dotfiles"
     curl https://raw.githubusercontent.com/gh0stzk/dotfiles/master/RiceInstaller -o $HOME/RiceInstaller
     chmod +x RiceInstaller
-    ./RiceInstaller
+    
+    echo $password | ./RiceInstaller
 }
 
 setup_visual_studio_code()
