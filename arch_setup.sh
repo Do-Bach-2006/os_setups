@@ -62,7 +62,7 @@ setup_visual_studio_code()
 
 # now , the vscode_profiles will be in the $HOME directory and we have to create a scropt to modify it
 
-
+r n
 add_settings()
 {
     echo "add bspwmrc settings"
@@ -95,10 +95,11 @@ main()
 
     yes "" | setup_visual_studio_code
 
-    # the dotfiles only receive y or n
-    yes "y" | install_dotfiles
+    # the dotfiles require something setup so we have to do it manually
+    # but as we reach here , the setup step is kinda finish , so we just need to type y , y and password , then chill
+    install_dotfiles
 
-    yes "" | add_settings
+    add_settings
 
     # clean up tempt files after setup
     # we are at the $HOME directory
